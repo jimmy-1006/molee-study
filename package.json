@@ -1,0 +1,11 @@
+{
+  "name": "molee.study",
+  "productName": "molee.study",
+  "version": "1.1.0",
+  "description": "面向所有学生的课程表、章节任务与考试倒计时桌面应用",
+  "main": "main.js",
+  "private": true,
+  "scripts": {
+    "start": "electron ."
+  }
+}

@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 560" role="img" aria-label="原创赤系修行伙伴">
+  <defs>
+    <linearGradient id="crimson-cloak" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#cc3a3d"/>
+      <stop offset="1" stop-color="#781d25"/>
+    </linearGradient>
+    <linearGradient id="crimson-hair" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#35323a"/>
+      <stop offset="1" stop-color="#17151c"/>
+    </linearGradient>
+    <filter id="crimson-shadow" x="-20%" y="-20%" width="140%" height="160%">
+      <feDropShadow dx="0" dy="16" stdDeviation="12" flood-color="#45151b" flood-opacity=".2"/>
+    </filter>
+  </defs>
+  <g filter="url(#crimson-shadow)">
+    <path d="M63 553c9-87 43-141 101-164h188c59 23 93 77 102 164H63z" fill="url(#crimson-cloak)" stroke="#1b1518" stroke-width="14"/>
+    <path d="M169 398h184l-16 94H185z" fill="#252128" stroke="#1b1518" stroke-width="12"/>
+    <path d="M178 415l82 83 82-83" fill="none" stroke="#e7d8c7" stroke-width="11" stroke-linecap="round"/>
+    <path d="M139 426c39-30 73-40 105-32l37 61-61 78-98-38z" fill="#df5152" stroke="#1b1518" stroke-width="13"/>
+    <path d="M380 426c-39-30-73-40-105-32l-37 61 61 78 98-38z" fill="#df5152" stroke="#1b1518" stroke-width="13"/>
+    <path d="M141 173C145 83 193 37 260 37c69 0 117 48 120 139l-9 188c-5 74-48 115-108 115-62 0-105-41-111-115z" fill="url(#crimson-hair)" stroke="#1b1518" stroke-width="15"/>
+    <path d="M170 129l-38 123 58-45 12 75 49-100 28 76 49-83 20 75 48-102 2 123c-30-39-78-61-137-61-58 0-106 21-138 58z" fill="#232027"/>
+    <path d="M168 238c0-79 39-122 93-122 55 0 94 43 94 122v56c0 75-38 118-94 118-56 0-93-43-93-118z" fill="#ffd5b3" stroke="#1b1518" stroke-width="14"/>
+    <path d="M153 208c70-26 153-26 221 1l-8 55c-67-24-137-24-204-1z" fill="#2d3039" stroke="#1b1518" stroke-width="13"/>
+    <path d="M179 222h132l-4 36H183z" fill="#c9cac7" stroke="#1b1518" stroke-width="10"/>
+    <path d="M243 227c15-11 32-10 44 2-12 11-29 13-44-2z" fill="#6e7478"/>
+    <path d="M224 228l50 11" stroke="#1b1518" stroke-width="8" stroke-linecap="round"/>
+    <ellipse cx="211" cy="310" rx="15" ry="27" fill="#17151b"/>
+    <ellipse cx="310" cy="310" rx="15" ry="27" fill="#17151b"/>
+    <circle cx="215" cy="301" r="4" fill="#fff"/><circle cx="314" cy="301" r="4" fill="#fff"/>
+    <ellipse cx="181" cy="352" rx="21" ry="9" fill="#ed9c92" opacity=".6"/>
+    <ellipse cx="343" cy="352" rx="21" ry="9" fill="#ed9c92" opacity=".6"/>
+    <path d="M249 349c8 6 17 6 25 0" fill="none" stroke="#77372e" stroke-width="5" stroke-linecap="round"/>
+    <path d="M174 421c-33 39-43 78-30 117l54 15 29-79zM347 421c33 39 43 78 30 117l-54 15-29-79z" fill="#f2e7d7" stroke="#1b1518" stroke-width="11"/>
+  </g>
+</svg>

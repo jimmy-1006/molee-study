@@ -1,0 +1,14 @@
+node_modules/
+dist/
+build/
+release/
+*.zip
+*.dmg
+*.exe
+*.log
+.DS_Store
+Thumbs.db
+source/
+tools/
+.env
+.env.*

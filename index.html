@@ -1,0 +1,671 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#23171e">
+  <meta name="description" content="molee.study - 课程表、章节任务与考试倒计时">
+  <title>molee.study · 修习录</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="legibility.css">
+  <link rel="stylesheet" href="guide.css">
+  <link rel="stylesheet" href="personalize.css">
+</head>
+<body>
+  <div class="ambient-background" aria-hidden="true"></div>
+  <svg class="icon-sprite" aria-hidden="true">
+    <symbol id="i-home" viewBox="0 0 24 24"><path d="M4 10.5 12 4l8 6.5V20a1 1 0 0 1-1 1h-5v-6H10v6H5a1 1 0 0 1-1-1z"/></symbol>
+    <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 10h18M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01"/></symbol>
+    <symbol id="i-scroll" viewBox="0 0 24 24"><path d="M6 4h12a2 2 0 0 1 2 2v14H8a2 2 0 0 1-2-2z"/><path d="M8 4a2 2 0 0 0-2 2v2h4M9 9h7M9 13h7M9 17h4"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
+    <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m8 10 4 4 4-4"/></symbol>
+    <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M14 7l5 5-5 5"/></symbol>
+    <symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="M19 12H5M10 7l-5 5 5 5"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+    <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/><path d="M12 2v3M22 12h-3M12 22v-3M2 12h3"/></symbol>
+    <symbol id="i-exam" viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5M9 12h7M9 16h5"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m16 16 5 5"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="m5 5 14 14M19 5 5 19"/></symbol>
+    <symbol id="i-edit" viewBox="0 0 24 24"><path d="M4 20h4l11-11-4-4L4 16zM13.5 6.5l4 4"/></symbol>
+    <symbol id="i-book" viewBox="0 0 24 24"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v17H6.5A2.5 2.5 0 0 0 4 22z"/><path d="M4 5.5V22M8 7h8"/></symbol>
+    <symbol id="i-note" viewBox="0 0 24 24"><path d="M5 3h14v18H5z"/><path d="M8 7h8M8 11h8M8 15h5"/></symbol>
+    <symbol id="i-flame" viewBox="0 0 24 24"><path d="M13 2c1 5-4 6-4 11a4 4 0 0 0 8 0c0-3-2-5-2-8 4 3 6 7 6 11a9 9 0 0 1-18 0c0-6 5-10 10-14z"/></symbol>
+    <symbol id="i-spark" viewBox="0 0 24 24"><path d="m12 2 2.4 7.6L22 12l-7.6 2.4L12 22l-2.4-7.6L2 12l7.6-2.4z"/></symbol>
+    <symbol id="i-location" viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0z"/><circle cx="12" cy="10" r="2.5"/></symbol>
+    <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.5-7 8-7s8 3 8 7"/></symbol>
+    <symbol id="i-cards" viewBox="0 0 24 24"><rect x="3" y="5" width="15" height="12" rx="2"/><path d="M7 21h12a2 2 0 0 0 2-2V8M7 9h7M7 13h5"/></symbol>
+    <symbol id="i-flip" viewBox="0 0 24 24"><path d="M4 8a8 8 0 0 1 13.5-3L20 7M20 4v4h-4M20 16a8 8 0 0 1-13.5 3L4 17M4 20v-4h4"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="i-file" viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v5h5"/></symbol>
+    <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M9 3h6l1 4H8zM7 7l1 14h8l1-14M10 11v6M14 11v6"/></symbol>
+    <symbol id="i-volume" viewBox="0 0 24 24"><path d="M4 10v4h4l5 4V6L8 10z"/><path d="M16 9a4 4 0 0 1 0 6M18.5 6.5a7.5 7.5 0 0 1 0 11"/></symbol>
+  </svg>
+
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">
+        <span class="brand-mark"><img src="favicon.svg" alt=""></span>
+        <div class="brand-copy"><strong>molee<span>.study</span></strong><small>忍道 · 学习修习录</small></div>
+      </div>
+
+      <section class="rank-card" aria-label="修习段位">
+        <div class="rank-top"><span>修习段位</span><strong id="rank-name">下忍</strong></div>
+        <div class="rank-track"><span id="rank-progress"></span></div>
+        <div class="rank-foot"><span id="rank-copy">第一卷卷轴，等待落笔</span><b id="rank-percent">0%</b></div>
+      </section>
+
+      <nav class="primary-nav" aria-label="主导航">
+        <button class="nav-button is-active" type="button" data-view="dashboard"><svg class="icon"><use href="#i-home"></use></svg><span>修习总览</span></button>
+        <button class="nav-button" type="button" data-view="schedule"><svg class="icon"><use href="#i-calendar"></use></svg><span>课程表</span></button>
+        <button class="nav-button" type="button" data-view="missions"><svg class="icon"><use href="#i-scroll"></use></svg><span>章节任务</span></button>
+        <button class="nav-button" type="button" data-view="mistakes"><svg class="icon"><use href="#i-cards"></use></svg><span>错题卷轴</span><b class="nav-badge" id="mistake-nav-count">0</b></button>
+      </nav>
+
+      <div class="sidebar-section-head"><span>修习科目</span><span class="sidebar-head-actions"><b id="sidebar-subject-count">8</b><button class="mini-add" type="button" id="add-course-button" aria-label="添加课程" title="添加课程"><svg class="icon"><use href="#i-plus"></use></svg></button></span></div>
+      <div class="sidebar-subjects" id="sidebar-subjects"></div>
+
+      <div class="sidebar-bottom">
+        <button class="exam-settings-button" type="button" id="open-exam-settings">
+          <span class="exam-settings-icon"><svg class="icon"><use href="#i-exam"></use></svg></span>
+          <span><strong>考试日程</strong><small>设置每科考试时间</small></span>
+          <svg class="icon exam-settings-arrow"><use href="#i-arrow-right"></use></svg>
+        </button>
+        <button class="exam-settings-button" type="button" id="open-personalize">
+          <span class="exam-settings-icon"><svg class="icon"><use href="#i-spark"></use></svg></span>
+          <span><strong>个性化</strong><small>主题 · 背景 · 语录</small></span>
+          <svg class="icon exam-settings-arrow"><use href="#i-arrow-right"></use></svg>
+        </button>
+        <button class="exam-settings-button" type="button" id="open-settings">
+          <span class="exam-settings-icon"><svg class="icon"><use href="#i-spark"></use></svg></span>
+          <span><strong>学习设置</strong><small>学期 · 导入 · 备份</small></span>
+          <svg class="icon exam-settings-arrow"><use href="#i-arrow-right"></use></svg>
+        </button>
+        <div class="semester-stamp"><span id="semester-label">本学期</span><p id="semester-summary">—</p></div>
+      </div>
+    </aside>
+
+    <div class="sidebar-scrim" id="sidebar-scrim"></div>
+
+    <div class="content-shell">
+      <header class="topbar">
+        <button class="mobile-menu" type="button" id="mobile-menu" aria-label="打开导航"><svg class="icon"><use href="#i-menu"></use></svg></button>
+        <div class="page-heading">
+          <div class="page-companion" id="page-companion" title="漩涡鸣人">
+            <img id="page-companion-image" src="assets/companions/naruto.jpg" alt="漩涡鸣人">
+          </div>
+          <div class="page-heading-copy"><p id="page-eyebrow">道场 · 今日修习</p><h1 id="page-title">修习总览</h1></div>
+        </div>
+        <div class="topbar-actions">
+          <div class="date-chip"><svg class="icon"><use href="#i-calendar"></use></svg><span id="today-label"></span></div>
+          <button class="ink-button compact" type="button" id="top-exam-button"><svg class="icon"><use href="#i-exam"></use></svg><span>考试日程</span></button>
+        </div>
+      </header>
+
+      <main class="main-content">
+        <section class="view is-active" id="view-dashboard" data-view-panel="dashboard">
+          <section class="hero-card">
+            <div class="hero-content">
+              <div class="hero-kicker"><span class="kicker-dot"></span><span id="hero-kicker-text">今日忍道 · 一页一章</span></div>
+              <h2>把每一章，<br><em>练成自己的忍术。</em></h2>
+              <div class="hero-quote" role="group" aria-label="励志语录轮播">
+                <div class="hero-quote-inner" id="hero-quote-inner">
+                  <p id="hero-quote-text" aria-live="polite" aria-atomic="true">我从来不会收回自己说过的话，这就是我的忍道。</p>
+                  <cite id="hero-quote-cite">—— 漩涡鸣人</cite>
+                </div>
+                <div class="hero-quote-controls">
+                  <button class="quote-carousel-button is-prev" id="hero-quote-prev" type="button" aria-label="上一句语录"><svg class="icon"><use href="#i-arrow-left"></use></svg></button>
+                  <button class="quote-carousel-button is-next" id="hero-quote-next" type="button" aria-label="下一句语录"><svg class="icon"><use href="#i-arrow-right"></use></svg></button>
+                </div>
+              </div>
+              <div class="hero-actions">
+                <button class="hero-button primary" type="button" data-go-view="missions"><span>继续修行</span><svg class="icon"><use href="#i-arrow-right"></use></svg></button>
+                <button class="hero-button secondary" type="button" data-go-view="schedule"><span>看课程表</span></button>
+              </div>
+              <div class="hero-stats">
+                <div><strong id="hero-progress">0%</strong><span>总修习进度</span></div>
+                <div><strong id="hero-hours">0h</strong><span>已完成理论课时</span></div>
+                <div><strong id="hero-streak">8</strong><span>修习科目</span></div>
+              </div>
+            </div>
+            <div class="hero-visual" role="group" aria-label="人物图像轮播">
+              <span class="hero-sun"></span>
+              <span class="hero-slash slash-one"></span><span class="hero-slash slash-two"></span><span class="hero-slash slash-three"></span>
+              <div class="hero-companion-stage">
+                <img class="hero-companion is-active" id="hero-companion-a" src="assets/companions/naruto.jpg" alt="">
+                <img class="hero-companion" id="hero-companion-b" src="assets/companions/minato.jpg" alt="">
+                <span class="hero-companion-tag" id="hero-companion-tag" aria-live="polite">漩涡鸣人</span>
+                <button class="hero-carousel-button is-prev" id="hero-companion-prev" type="button" aria-label="上一张人物图"><svg class="icon"><use href="#i-arrow-left"></use></svg></button>
+                <button class="hero-carousel-button is-next" id="hero-companion-next" type="button" aria-label="下一张人物图"><svg class="icon"><use href="#i-arrow-right"></use></svg></button>
+              </div>
+              <span class="hero-seal">火之意志<br><b>修习中</b></span>
+              <span class="hero-caption">MOLEE / STUDY NINJA</span>
+            </div>
+          </section>
+
+          <section class="metric-grid" aria-label="修习数据">
+            <article class="metric-card accent-orange">
+              <span class="metric-mark"><svg class="icon"><use href="#i-target"></use></svg></span>
+              <div><span>章节完成</span><strong id="metric-chapters">0 / 193</strong><small id="metric-chapter-copy">第一枚印章等你落下</small></div>
+            </article>
+            <article class="metric-card accent-red">
+              <span class="metric-mark"><svg class="icon"><use href="#i-clock"></use></svg></span>
+              <div><span>理论课时</span><strong id="metric-hours">0 / 385h</strong><small id="metric-hour-copy">按章节课时加权计算</small></div>
+            </article>
+            <article class="metric-card accent-green">
+              <span class="metric-mark"><svg class="icon"><use href="#i-flame"></use></svg></span>
+              <div><span>今日课程</span><strong id="metric-today">0 节</strong><small id="metric-today-copy">查看今日修行安排</small></div>
+            </article>
+            <article class="metric-card accent-gold">
+              <span class="metric-mark"><svg class="icon"><use href="#i-exam"></use></svg></span>
+              <div><span>最近考试</span><strong id="metric-exam">未设置</strong><small id="metric-exam-copy">点此设置考试日期</small></div>
+            </article>
+          </section>
+
+          <div class="dashboard-grid">
+            <section class="panel today-panel">
+              <div class="panel-head"><div><p class="panel-kicker">TODAY&apos;S SCROLL</p><h2>今日课程</h2></div><span class="panel-chip" id="today-panel-date"></span></div>
+              <div class="today-schedule" id="today-schedule"></div>
+              <div class="panel-foot-link"><button type="button" data-go-view="schedule">打开完整课程表 <svg class="icon"><use href="#i-arrow-right"></use></svg></button></div>
+            </section>
+
+            <section class="panel exam-panel">
+              <div class="panel-head"><div><p class="panel-kicker">COUNTDOWN</p><h2>考试倒计时</h2></div><button class="mini-icon-button" type="button" data-open-exam=""><svg class="icon"><use href="#i-edit"></use></svg></button></div>
+              <div class="exam-spotlight" id="exam-spotlight"></div>
+              <div class="exam-mini-list" id="exam-mini-list"></div>
+            </section>
+          </div>
+
+          <section class="panel subject-panel">
+            <div class="panel-head"><div><p class="panel-kicker">ALL PATHS</p><h2 id="subject-panel-title">修行卷轴</h2></div><div class="panel-head-actions"><button class="text-button" type="button" id="manage-courses-button"><svg class="icon"><use href="#i-edit"></use></svg>管理课程</button><button class="text-button" type="button" data-go-view="missions">查看全部章节 <svg class="icon"><use href="#i-arrow-right"></use></svg></button></div></div>
+            <div class="subject-overview-grid" id="subject-overview"></div>
+          </section>
+
+          <section class="panel next-panel">
+            <div class="panel-head"><div><p class="panel-kicker">NEXT MISSIONS</p><h2>接下来修行</h2></div><span class="brush-label">按课时推进</span></div>
+            <div class="next-chapter-list" id="next-chapters"></div>
+          </section>
+        </section>
+
+        <section class="view" id="view-schedule" data-view-panel="schedule" hidden>
+          <section class="schedule-hero">
+            <div><p class="panel-kicker">WEEKLY ROUTE</p><h2 id="schedule-week-title">第 9 周</h2><p id="schedule-week-range">11月2日 — 11月8日</p></div>
+            <div class="week-controls">
+              <button class="round-button" type="button" id="week-prev" aria-label="上一周"><svg class="icon"><use href="#i-arrow-left"></use></svg></button>
+              <button class="week-now-button" type="button" id="week-now">回到本周</button>
+              <button class="round-button" type="button" id="week-next" aria-label="下一周"><svg class="icon"><use href="#i-arrow-right"></use></svg></button>
+            </div>
+            <div class="schedule-mascot"><img src="assets/companions/kakashi-night.jpg" alt=""></div>
+          </section>
+
+          <div class="schedule-toolbar">
+            <div class="subject-filter" id="schedule-subject-filter"></div>
+            <div class="schedule-toolbar-right">
+              <span class="schedule-count" id="schedule-count"></span>
+              <button class="ghost-button compact" type="button" id="add-session-button"><svg class="icon"><use href="#i-plus"></use></svg><span>添加课表</span></button>
+            </div>
+          </div>
+          <div class="week-grid" id="schedule-grid"></div>
+
+          <section class="panel upcoming-panel">
+            <div class="panel-head"><div><p class="panel-kicker">NEXT CLASSES</p><h2>接下来三节课</h2></div><span class="panel-chip">按日期排序</span></div>
+            <div class="upcoming-session-list" id="upcoming-sessions"></div>
+          </section>
+        </section>
+
+        <section class="view" id="view-missions" data-view-panel="missions" hidden>
+          <div class="subject-tabs" id="subject-tabs" role="tablist" aria-label="选择科目"></div>
+
+          <section class="subject-focus" id="subject-focus"></section>
+
+          <div class="mission-toolbar">
+            <label class="search-box"><svg class="icon"><use href="#i-search"></use></svg><input id="chapter-search" type="search" placeholder="搜索章节名称" autocomplete="off"></label>
+            <div class="mission-toolbar-copy"><span id="chapter-visible-count"></span><button class="text-button" type="button" id="add-chapter-button"><svg class="icon"><use href="#i-plus"></use></svg>添加章节</button><button class="text-button" type="button" id="expand-all-chapters">展开全部</button></div>
+          </div>
+
+          <div class="chapter-list" id="chapter-list"></div>
+        </section>
+
+        <section class="view" id="view-mistakes" data-view-panel="mistakes" hidden>
+          <section class="mistake-hero">
+            <div>
+              <p class="panel-kicker">WRONG ANSWERS, RIGHT PATH</p>
+              <h2>把错题，变成下一次的忍术。</h2>
+              <p>A 面看题，B 面看答案与解析。卡片由你自定义，也可以随卡附带 JPG 与学习文档。</p>
+            </div>
+            <img src="assets/companions/itachi.jpg" alt="">
+            <div class="mistake-hero-stats"><strong id="mistake-total">0</strong><span>枚错题卷轴</span></div>
+          </section>
+
+          <div class="mistake-toolbar">
+            <div class="subject-filter" id="mistake-subject-filter"></div>
+            <div class="mistake-actions">
+              <label class="search-box mistake-search"><svg class="icon"><use href="#i-search"></use></svg><input id="mistake-search" type="search" placeholder="搜索题目或解析" autocomplete="off"></label>
+              <button class="ghost-button review-launch-button" type="button" id="review-mistakes-button"><svg class="icon"><use href="#i-flip"></use></svg><span>复习当前科目</span></button>
+              <button class="ink-button" type="button" id="add-mistake-button"><svg class="icon"><use href="#i-plus"></use></svg><span>新建错题卡</span></button>
+            </div>
+          </div>
+
+          <div class="mistake-card-grid" id="mistake-card-grid"></div>
+        </section>
+      </main>
+
+      <footer class="site-footer"><span>molee.study</span><p>每一章都算数，每一课时都留下刻痕。</p><span>忍道 · 学习修习录</span></footer>
+    </div>
+  </div>
+
+  <dialog class="modal exam-modal" id="exam-dialog">
+    <form class="modal-card" id="exam-form">
+      <div class="modal-head">
+        <div><p class="panel-kicker">EXAM DATES</p><h2>设置考试日程</h2><p>为每一科选择日期和时间，倒计时会自动开始。</p></div>
+        <button class="round-button" type="button" id="close-exam-dialog" aria-label="关闭"><svg class="icon"><use href="#i-close"></use></svg></button>
+      </div>
+      <div class="exam-editor-list" id="exam-editor-list"></div>
+      <div class="modal-actions">
+        <button class="ghost-button" type="button" id="clear-exams">清空全部</button>
+        <button class="ink-button" type="submit">保存考试日程 <svg class="icon"><use href="#i-check"></use></svg></button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog class="modal mistake-modal" id="mistake-dialog">
+    <form class="modal-card mistake-editor-card" id="mistake-form">
+      <div class="modal-head">
+        <div><p class="panel-kicker">CUSTOM CARD</p><h2 id="mistake-editor-title">新建错题卷轴</h2><p>A 面放题目，B 面放答案和解析。</p></div>
+        <button class="round-button" type="button" id="close-mistake-dialog" aria-label="关闭"><svg class="icon"><use href="#i-close"></use></svg></button>
+      </div>
+      <input type="hidden" id="mistake-id">
+      <div class="mistake-form-grid">
+        <label class="form-field"><span>所属科目</span><select id="mistake-subject"></select></label>
+        <label class="form-field"><span>卡片标题</span><input id="mistake-title" type="text" placeholder="例如：急性胰腺炎的诊断依据"></label>
+      </div>
+      <label class="form-field"><span>A 面 · 题目</span><textarea id="mistake-question" rows="5" placeholder="输入题目、题干或需要记忆的问题"></textarea></label>
+      <label class="form-field"><span>B 面 · 答案</span><textarea id="mistake-answer" rows="4" placeholder="输入正确答案"></textarea></label>
+      <label class="form-field"><span>B 面 · 解析</span><textarea id="mistake-analysis" rows="4" placeholder="为什么错、关键知识点、易混淆项"></textarea></label>
+      <label class="form-field file-field"><span>附件 <em>支持 JPG / PNG / PDF / Word / Excel / PPT</em></span><input id="mistake-files" type="file" multiple accept=".jpg,.jpeg,.png,.webp,.pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt"></label>
+      <div class="pending-file-list" id="pending-file-list"></div>
+      <div class="modal-actions">
+        <button class="ghost-button" type="button" id="cancel-mistake-edit">取消</button>
+        <button class="ink-button" type="submit">保存到错题卷轴 <svg class="icon"><use href="#i-check"></use></svg></button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog class="modal review-modal" id="review-dialog">
+    <div class="modal-card review-card">
+      <div class="modal-head">
+        <div><p class="panel-kicker">REVIEW MODE</p><h2>错题复习</h2><p id="review-subject-label">按科目顺序复习，翻面后再看答案。</p></div>
+        <button class="round-button" type="button" id="close-review-dialog" aria-label="关闭"><svg class="icon"><use href="#i-close"></use></svg></button>
+      </div>
+      <div class="review-progress-row">
+        <span id="review-progress-label">0 / 0</span>
+        <div class="review-progress-track"><span id="review-progress-bar"></span></div>
+      </div>
+      <button class="review-face-button" type="button" id="review-flip">
+        <span class="review-face-label" id="review-face-label">A 面 · 题目</span>
+        <span class="review-face-content" id="review-face-content"></span>
+        <span class="review-flip-hint" id="review-flip-hint">点击卡片，翻到 B 面</span>
+      </button>
+      <div class="review-attachments" id="review-attachments"></div>
+      <div class="modal-actions review-actions">
+        <button class="ghost-button" type="button" id="review-prev">上一张</button>
+        <button class="ghost-button" type="button" id="review-next">下一张</button>
+        <button class="ink-button" type="button" id="review-done">完成并退出 <svg class="icon"><use href="#i-check"></use></svg></button>
+      </div>
+    </div>
+  </dialog>
+
+  <button class="help-fab" type="button" id="open-help" aria-label="打开使用指引" title="使用指引">
+    <strong>?</strong><small>指引</small>
+  </button>
+
+  <aside class="help-drawer" id="help-drawer" aria-hidden="true" aria-label="使用指引">
+    <div class="help-drawer-head">
+      <div><p class="panel-kicker">GUIDE</p><h2>三分钟上手</h2><p>照着做就行，不用记命令。</p></div>
+      <button class="round-button" type="button" id="close-help" aria-label="关闭指引"><svg class="icon"><use href="#i-close"></use></svg></button>
+    </div>
+    <div class="help-drawer-body" id="help-drawer-body"></div>
+  </aside>
+  <div class="help-scrim" id="help-scrim" hidden></div>
+
+  <dialog class="modal" id="course-dialog">
+    <form class="modal-card" id="course-form">
+      <div class="modal-head">
+        <div><p class="panel-kicker">COURSE</p><h2 id="course-dialog-title">添加课程</h2><p>课程名称会出现在侧边栏、课程表和章节任务里。</p></div>
+        <button class="round-button" type="button" data-close-dialog="course-dialog" aria-label="关闭"><svg class="icon"><use href="#i-close"></use></svg></button>
+      </div>
+      <input type="hidden" id="course-id">
+      <div class="form-grid two">
+        <label class="form-field"><span>课程名称</span><input id="course-name" type="text" required maxlength="24" placeholder="例如：高等数学"></label>
+        <label class="form-field"><span>简称 <em>课程表上显示的短名</em></span><input id="course-short" type="text" maxlength="8" placeholder="例如：高数"></label>
+        <label class="form-field"><span>标记字 <em>1 个字</em></span><input id="course-mark" type="text" maxlength="2" placeholder="例如：数"></label>
+        <label class="form-field"><span>主题色</span><select id="course-theme"></select></label>
+        <label class="form-field"><span>随行头像 <em>科目页右上角</em></span><select id="course-avatar"></select></label>
+        <label class="form-field"><span>理论课时</span><input id="course-theory" type="number" min="0" max="999" step="0.5" value="0"></label>
+        <label class="form-field"><span>实践课时</span><input id="course-practice" type="number" min="0" max="999" step="0.5" value="0"></label>
+      </div>
+      <p class="form-hint">课时只影响统计口径；章节进度按各章课时加权计算。</p>
+      <div class="modal-actions">
+        <button class="ghost-button danger" type="button" id="course-delete" hidden>删除课程</button>
+        <span class="modal-spacer"></span>
+        <button class="ghost-button" type="button" data-close-dialog="course-dialog">取消</button>
+        <button class="ink-button" type="submit">保存课程 <svg class="icon"><use href="#i-check"></use></svg></button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog class="modal" id="chapter-dialog">
+    <form class="modal-card" id="chapter-form">
+      <div class="modal-head">
+        <div><p class="panel-kicker">CHAPTER</p><h2 id="chapter-dialog-title">添加章节</h2><p>章节是进度计算的最小单位。</p></div>
+        <button class="round-button" type="button" data-close-dialog="chapter-dialog" aria-label="关闭"><svg class="icon"><use href="#i-close"></use></svg></button>
+      </div>
+      <input type="hidden" id="chapter-id">
+      <div class="form-grid two">
+        <label class="form-field"><span>所属课程</span><select id="chapter-subject" required></select></label>
+        <label class="form-field"><span>课时</span><input id="chapter-hours" type="number" min="0" max="99" step="0.5" value="2"></label>
+      </div>
+      <label class="form-field"><span>章节名称</span><input id="chapter-title" type="text" required maxlength="80" placeholder="例如：第三章 导数与微分"></label>
+      <label class="form-field"><span>说明 <em>选填，会显示在展开后的章节里</em></span><textarea id="chapter-description" rows="3" maxlength="300" placeholder="这一章的重点、作业或考试范围"></textarea></label>
+      <div class="modal-actions">
+        <button class="ghost-button danger" type="button" id="chapter-delete" hidden>删除章节</button>
+        <span class="modal-spacer"></span>
+        <button class="ghost-button" type="button" data-close-dialog="chapter-dialog">取消</button>
+        <button class="ink-button" type="submit">保存章节 <svg class="icon"><use href="#i-check"></use></svg></button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog class="modal" id="session-dialog">
+    <form class="modal-card" id="session-form">
+      <div class="modal-head">
+        <div><p class="panel-kicker">CLASS</p><h2 id="session-dialog-title">添加课程安排</h2><p>支持一次排连续多周，之后每周同一天自动出现。</p></div>
+        <button class="round-button" type="button" data-close-dialog="session-dialog" aria-label="关闭"><svg class="icon"><use href="#i-close"></use></svg></button>
+      </div>
+      <input type="hidden" id="session-id">
+      <div class="form-grid two">
+        <label class="form-field"><span>课程</span><select id="session-subject" required></select></label>
+        <label class="form-field"><span>类型</span><select id="session-type"><option value="theory">理论课</option><option value="practice">实践 / 实验课</option></select></label>
+        <label class="form-field"><span>日期</span><input id="session-date" type="date" required></label>
+        <label class="form-field"><span>重复 <em>从这天起每周同一天</em></span><select id="session-repeat"></select></label>
+        <label class="form-field"><span>开始时间</span><input id="session-start" type="time" value="08:00"></label>
+        <label class="form-field"><span>结束时间</span><input id="session-end" type="time" value="09:40"></label>
+        <label class="form-field"><span>节次 <em>可留空</em></span><input id="session-section" type="text" maxlength="12" placeholder="例如：1-2"></label>
+        <label class="form-field"><span>课时</span><input id="session-hours" type="number" min="0" max="20" step="0.5" value="2"></label>
+      </div>
+      <label class="form-field"><span>上课内容</span><input id="session-content" type="text" required maxlength="80" placeholder="例如：第三章 极限与连续"></label>
+      <div class="form-grid two">
+        <label class="form-field"><span>地点 <em>选填</em></span><input id="session-place" type="text" maxlength="40" placeholder="例如：教学楼 A301"></label>
+        <label class="form-field"><span>教师 <em>选填</em></span><input id="session-teacher" type="text" maxlength="24" placeholder="可留空"></label>
+      </div>
+      <div class="modal-actions">
+        <button class="ghost-button danger" type="button" id="session-delete" hidden>删除这节课</button>
+        <span class="modal-spacer"></span>
+        <button class="ghost-button" type="button" data-close-dialog="session-dialog">取消</button>
+        <button class="ink-button" type="submit">保存安排 <svg class="icon"><use href="#i-check"></use></svg></button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog class="modal" id="settings-dialog">
+    <div class="modal-card">
+      <div class="modal-head">
+        <div><p class="panel-kicker">SETTINGS</p><h2>学习设置</h2><p>学期、数据备份与新手引导都在这里。</p></div>
+        <button class="round-button" type="button" data-close-dialog="settings-dialog" aria-label="关闭"><svg class="icon"><use href="#i-close"></use></svg></button>
+      </div>
+      <section class="settings-section">
+        <h3>学期</h3>
+        <div class="form-grid three">
+          <label class="form-field"><span>学期名称</span><input id="settings-semester" type="text" maxlength="20"></label>
+          <label class="form-field"><span>第一周周一</span><input id="settings-start" type="date"></label>
+          <label class="form-field"><span>总周数</span><input id="settings-weeks" type="number" min="1" max="30"></label>
+        </div>
+        <button class="ink-button compact" type="button" id="save-semester">保存学期设置</button>
+      </section>
+      <section class="settings-section">
+        <h3>课程与数据</h3>
+        <div class="settings-actions">
+          <button class="ghost-button" type="button" id="settings-manage-courses">管理课程</button>
+          <button class="ghost-button" type="button" id="settings-import">AI / 数据导入</button>
+          <button class="ghost-button" type="button" id="settings-export">导出备份</button>
+          <label class="ghost-button file-button">导入备份<input id="settings-import-file" type="file" accept=".json,application/json" hidden></label>
+        </div>
+      </section>
+      <section class="settings-section">
+        <h3>本机数据</h3>
+        <p class="settings-note">所有内容都保存在这台电脑上，不会上传。换设备前请先导出备份。</p>
+        <div class="settings-actions">
+          <button class="ghost-button" type="button" id="settings-replay-guide">重看新手引导</button>
+          <button class="ghost-button danger" type="button" id="settings-reset">恢复示例数据</button>
+          <button class="ghost-button danger" type="button" id="settings-clear">清空全部数据</button>
+        </div>
+      </section>
+    </div>
+  </dialog>
+
+  <dialog class="modal import-modal" id="import-dialog">
+    <div class="modal-card">
+      <div class="modal-head">
+        <div><p class="panel-kicker">AI ASSIST</p><h2>用 AI 整理课程</h2><p>三步：复制提示词 → 粘给任意 AI → 把结果粘回来。不用配置 Key。</p></div>
+        <button class="round-button" type="button" data-close-dialog="import-dialog" aria-label="关闭"><svg class="icon"><use href="#i-close"></use></svg></button>
+      </div>
+      <div class="import-steps">
+        <span class="import-step is-active" data-import-step="1"><b>1</b>复制提示词</span>
+        <span class="import-step" data-import-step="2"><b>2</b>粘贴结果</span>
+        <span class="import-step" data-import-step="3"><b>3</b>预览入库</span>
+      </div>
+      <section class="import-panel" data-import-panel="1">
+        <label class="form-field"><span>把这段提示词和你的教学大纲 / 课表一起发给 AI</span><textarea id="ai-prompt" rows="12" readonly></textarea></label>
+        <div class="import-panel-actions">
+          <button class="ink-button" type="button" id="copy-ai-prompt"><svg class="icon"><use href="#i-note"></use></svg>复制提示词</button>
+          <button class="ghost-button" type="button" id="download-ai-prompt">存成 TXT</button>
+          <span class="modal-spacer"></span>
+          <button class="ghost-button" type="button" data-import-goto="2">我拿到结果了 <svg class="icon"><use href="#i-arrow-right"></use></svg></button>
+        </div>
+      </section>
+      <section class="import-panel" data-import-panel="2" hidden>
+        <label class="form-field"><span>AI 返回的 JSON <em>整段粘贴即可，代码块会自动去掉</em></span><textarea id="ai-result" rows="12" placeholder="把 AI 返回的内容整段粘在这里"></textarea></label>
+        <div class="import-panel-actions">
+          <button class="ghost-button" type="button" data-import-goto="1">上一步</button>
+          <span class="modal-spacer"></span>
+          <button class="ink-button" type="button" id="validate-import">校验并预览</button>
+        </div>
+      </section>
+      <section class="import-panel" data-import-panel="3" hidden>
+        <div class="import-summary" id="import-summary"></div>
+        <div class="import-problems" id="import-problems"></div>
+        <div class="import-preview" id="import-preview"></div>
+        <div class="import-panel-actions">
+          <label class="form-field inline"><span>导入方式</span><select id="import-mode"><option value="merge">追加到现有数据</option><option value="replace">替换全部数据</option></select></label>
+          <span class="modal-spacer"></span>
+          <button class="ghost-button" type="button" data-import-goto="2">返回修改</button>
+          <button class="ink-button" type="button" id="confirm-import" disabled>确认导入</button>
+        </div>
+      </section>
+    </div>
+  </dialog>
+
+  <dialog class="modal" id="courses-dialog">
+    <div class="modal-card">
+      <div class="modal-head">
+        <div><p class="panel-kicker">COURSES</p><h2>管理课程</h2><p>改名、调整课时，或者删除整门课。删除会一并清理它的章节和课表。</p></div>
+        <button class="round-button" type="button" data-close-dialog="courses-dialog" aria-label="关闭"><svg class="icon"><use href="#i-close"></use></svg></button>
+      </div>
+      <div class="course-manager-list" id="course-manager-list"></div>
+      <div class="modal-actions">
+        <button class="ghost-button" type="button" data-close-dialog="courses-dialog">关闭</button>
+        <span class="modal-spacer"></span>
+        <button class="ink-button" type="button" id="manager-add-course"><svg class="icon"><use href="#i-plus"></use></svg>添加课程</button>
+      </div>
+    </div>
+  </dialog>
+
+  <div class="onboarding" id="onboarding" hidden>
+    <div class="onboarding-card">
+      <div class="onboarding-progress" id="onboarding-progress"></div>
+
+      <section class="onboarding-step is-active" data-onboard-step="0">
+        <p class="onboarding-kicker">WELCOME</p>
+        <h2>这是你的<br><em>学习指挥台</em></h2>
+        <p class="onboarding-lead">课程表、章节任务、考试倒计时和错题复习，全都收在一个地方。</p>
+        <ul class="onboarding-points">
+          <li><b>01</b><span><strong>数据只存在这台电脑</strong><small>不上传、不注册、不联网</small></span></li>
+          <li><b>02</b><span><strong>课程和课表都能改</strong><small>示例数据随时可以删掉重来</small></span></li>
+          <li><b>03</b><span><strong>不会填就让 AI 帮忙</strong><small>复制提示词，把结果粘回来就行</small></span></li>
+        </ul>
+      </section>
+
+      <section class="onboarding-step" data-onboard-step="1">
+        <p class="onboarding-kicker">STEP 1 · 学期</p>
+        <h2>这学期<br>从哪天开始</h2>
+        <p class="onboarding-lead">课程表按周次显示，考试倒计时也从这里算起。</p>
+        <div class="onboarding-fields">
+          <label class="form-field"><span>学期名称</span><input id="onboard-semester" type="text" maxlength="20" placeholder="例如：2026 秋季学期"></label>
+          <label class="form-field"><span>开学第一周的周一</span><input id="onboard-start" type="date"></label>
+          <label class="form-field"><span>一共多少周</span><input id="onboard-weeks" type="number" min="1" max="30" value="18"></label>
+        </div>
+      </section>
+
+      <section class="onboarding-step" data-onboard-step="2">
+        <p class="onboarding-kicker">STEP 2 · 课程</p>
+        <h2>这学期<br>你在学哪些课</h2>
+        <p class="onboarding-lead">一行一门。默认已经填好示例课程，直接下一步也可以。</p>
+        <label class="form-field"><span>课程列表 <em>一行一门</em></span><textarea id="onboard-courses" rows="8"></textarea></label>
+        <p class="onboarding-hint">改动课程列表会重建课程结构，示例章节会被清空；不想动就保持原样。</p>
+      </section>
+
+      <section class="onboarding-step" data-onboard-step="3">
+        <p class="onboarding-kicker">STEP 3 · 课表</p>
+        <h2>课表怎么进来</h2>
+        <p class="onboarding-lead">选一个最省事的方式，之后随时能补。</p>
+        <div class="onboarding-choices">
+          <button class="onboarding-choice" type="button" data-onboard-choice="ai"><b>AI 帮我整理</b><small>复制提示词 → 粘给 AI → 把结果粘回来</small><span>推荐</span></button>
+          <button class="onboarding-choice" type="button" data-onboard-choice="manual"><b>手动添加</b><small>知道时间地点，一门一门填</small></button>
+          <button class="onboarding-choice" type="button" data-onboard-choice="later"><b>先跳过</b><small>先看看界面，课表之后再说</small></button>
+        </div>
+      </section>
+
+      <section class="onboarding-step" data-onboard-step="4">
+        <p class="onboarding-kicker">READY</p>
+        <h2>一切就绪</h2>
+        <p class="onboarding-lead">右上角可以设置考试日程；右下角的「?」是完整使用说明。</p>
+        <div class="onboarding-done-card">
+          <span id="onboard-summary-semester">本学期</span>
+          <strong id="onboard-summary-courses">8 门课程</strong>
+          <small>数据保存在本机，换电脑前记得导出备份。</small>
+        </div>
+      </section>
+
+      <div class="onboarding-actions">
+        <button class="ghost-button" type="button" id="onboard-back">上一步</button>
+        <span class="onboarding-dots" id="onboard-dots"></span>
+        <button class="ink-button" type="button" id="onboard-next">下一步 <svg class="icon"><use href="#i-arrow-right"></use></svg></button>
+      </div>
+    </div>
+  </div>
+  <dialog class="modal personalize-modal" id="personalize-dialog">
+    <div class="modal-card">
+      <div class="modal-head">
+        <div><p class="panel-kicker">PERSONALIZE</p><h2>个性化</h2><p>改动即时生效，全部只保存在这台电脑上。</p></div>
+        <button class="round-button" type="button" data-close-dialog="personalize-dialog" aria-label="关闭"><svg class="icon"><use href="#i-close"></use></svg></button>
+      </div>
+
+      <section class="pn-section">
+        <h3><span>01</span>主页称呼</h3>
+        <label class="form-field"><span>昵称 <em>留空则显示默认问候</em></span><input id="pn-nickname" type="text" maxlength="12" placeholder="例如：小林"></label>
+      </section>
+
+      <section class="pn-section">
+        <h3><span>02</span>氛围色</h3>
+        <div class="pn-themes" id="pn-themes"></div>
+      </section>
+
+      <section class="pn-section">
+        <h3><span>03</span>背景图</h3>
+        <div class="pn-bg-row">
+          <div class="pn-bg-choices" id="pn-bg-choices"></div>
+          <label class="ghost-button file-button pn-upload"><span id="pn-bg-upload-label">上传图片</span><input id="pn-bg-upload" type="file" accept="image/*" hidden></label>
+        </div>
+        <div class="pn-sliders">
+          <label class="pn-slider"><span>透明度 <b id="pn-opacity-value">50%</b></span><input id="pn-opacity" type="range" min="8" max="100" step="1" value="50"></label>
+          <label class="pn-slider"><span>大小 <b id="pn-size-value">90%</b></span><input id="pn-size" type="range" min="40" max="160" step="1" value="90"></label>
+          <label class="pn-slider"><span>左右位置 <b id="pn-x-value">88%</b></span><input id="pn-x" type="range" min="0" max="100" step="1" value="88"></label>
+          <label class="pn-slider"><span>上下位置 <b id="pn-y-value">44%</b></span><input id="pn-y" type="range" min="0" max="100" step="1" value="44"></label>
+        </div>
+        <button class="text-button" type="button" id="pn-bg-reset">恢复默认背景</button>
+      </section>
+
+      <section class="pn-section">
+        <h3><span>04</span>界面</h3>
+        <div class="pn-sliders">
+          <label class="pn-slider"><span>卡片不透明度 <b id="pn-alpha-value">50%</b></span><input id="pn-alpha" type="range" min="20" max="90" step="1" value="50"></label>
+        </div>
+        <div class="pn-choice-row">
+          <span>字号</span>
+          <div class="pn-segmented" id="pn-font">
+            <button type="button" data-font-scale="0.9">小</button>
+            <button type="button" data-font-scale="1">标准</button>
+            <button type="button" data-font-scale="1.12">大</button>
+            <button type="button" data-font-scale="1.2">特大</button>
+          </div>
+        </div>
+        <div class="pn-choice-row">
+          <span>人物插画</span>
+          <label class="pn-switch"><input id="pn-companions" type="checkbox" checked><i></i><b id="pn-companions-label">显示</b></label>
+        </div>
+        <div class="pn-choice-row">
+          <span>励志语录</span>
+          <label class="pn-switch"><input id="pn-quotes" type="checkbox" checked><i></i><b id="pn-quotes-label">显示</b></label>
+        </div>
+        <div class="pn-choice-row">
+          <span>人物轮播</span>
+          <select id="pn-interval" class="pn-select">
+            <option value="1">1 分钟</option>
+            <option value="5" selected>5 分钟</option>
+            <option value="10">10 分钟</option>
+            <option value="30">30 分钟</option>
+          </select>
+        </div>
+      </section>
+
+      <section class="pn-section">
+        <h3><span>05</span>章节小任务</h3>
+        <p class="pn-note">每章固定三项，名字由你定。</p>
+        <div class="form-grid three">
+          <label class="form-field"><span>第一项</span><input id="pn-task-0" type="text" maxlength="8"></label>
+          <label class="form-field"><span>第二项</span><input id="pn-task-1" type="text" maxlength="8"></label>
+          <label class="form-field"><span>第三项</span><input id="pn-task-2" type="text" maxlength="8"></label>
+        </div>
+      </section>
+
+      <section class="pn-section">
+        <h3><span>06</span>我的语录</h3>
+        <p class="pn-note">留空则使用内置的忍者语录；添加第一句时会把内置语录一起带进来。</p>
+        <div id="pn-quotes-editor" class="pn-quotes"></div>
+        <div class="pn-quote-add">
+          <input id="pn-quote-text" type="text" maxlength="120" placeholder="一句你想在首页看到的话">
+          <input id="pn-quote-author" type="text" maxlength="24" placeholder="署名">
+          <button class="ghost-button compact" type="button" id="pn-quote-add">添加</button>
+        </div>
+        <button class="text-button" type="button" id="pn-quotes-reset">恢复内置语录</button>
+      </section>
+
+      <div class="modal-actions">
+        <button class="ghost-button danger" type="button" id="pn-reset-all">全部恢复默认</button>
+        <span class="modal-spacer"></span>
+        <button class="ghost-button" type="button" data-close-dialog="personalize-dialog">关闭</button>
+      </div>
+    </div>
+  </dialog>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="data.js"></script>
+  <script src="catalog-data.js"></script>
+  <script src="personalize-data.js"></script>
+  <script src="app.js"></script>
+  <script src="catalog-ui.js"></script>
+  <script src="personalize-ui.js"></script>
+
+</body>
+</html>
